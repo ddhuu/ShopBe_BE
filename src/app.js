@@ -15,14 +15,14 @@ app.use(compression())
 
 // init db
 
-
+require('./dbs/init.db')
 
 // Init Routeme
 app.get('/', (req,res,next)=>{
     const strCompress = "Hi"
     return res.status(200).json({
         message: 'Hello World',
-        metadata: strCompress.repeat(100000)
+        //metadata: strCompress.repeat(100000)
 
     })
 })
