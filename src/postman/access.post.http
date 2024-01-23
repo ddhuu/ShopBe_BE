@@ -1,4 +1,4 @@
-@url_dev = http://localhost:3052/v1/api/
+@url_dev = http://localhost:3052/v1/api
 
 ### Sign-Up
 POST {{url_dev}}/shop/signup
@@ -6,6 +6,6 @@ Content-Type: application/json
 
 {
     "name": "Shop Iris1111",
-    "email": "huulop22222222sa1@gmail.com",
+    "email": "huulop3333333a1@gmail.com",
     "password": "abc123"
 }

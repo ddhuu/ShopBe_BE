@@ -33,39 +33,41 @@ class AccessService{
             if (newShop)
             {
                 // created privateKey, publicKey
-                const {privateKey, publicKey} = crypto.generateKeyPairSync('rsa',{ 
-                    modulusLength: 2048,
-                    publicKeyEncoding: {
-                        type: 'pkcs1',
-                        format: 'pem'
-                    },
-                    privateKeyEncoding: {
-                        type: 'pkcs1',
-                        format: 'pem'
-                    }
+
+                // const {privateKey, publicKey} = crypto.generateKeyPairSync('rsa',{ 
+                //     modulusLength: 2048,
+                //     publicKeyEncoding: {
+                //         type: 'pkcs1',
+                //         format: 'pem'
+                //     },
+                //     privateKeyEncoding: {
+                //         type: 'pkcs1',
+                //         format: 'pem'
+                //     }
                 
-                })
+                // })
+
+                const privateKey =  crypto.randomBytes(64).toString('hex')
+                const publicKey = crypto.randomBytes(64).toString('hex')
+
                 
                 console.log({privateKey, publicKey}) //save collections keyStore
 
-                const publicKeyString = await KeyTokenService.createKeyToken({
+                const keyStore = await KeyTokenService.createKeyToken({
                     userID: newShop._id,
-                    publicKey
+                    publicKey,
+                    privateKey
                 })
-                console.log(`publicKeyString::`, publicKeyString)
 
-                if(!publicKeyString){
+
+                if(!keyStore){
                     return {
                         code:'xxx',
                         message:'publicKeyString Error'
                     }
                 }
-
-                const publicKeyObject = crypto.createPublicKey(publicKeyString)
-                console.log(`publicKeyObject::`, publicKeyObject)
-
                 // created token pair
-                const tokens = await createTokenPair({userID: newShop._id, email},publicKeyObject , privateKey)
+                const tokens = await createTokenPair({userID: newShop._id, email},publicKey , privateKey)
                 console.log(`Create Token Successfully`, tokens)
 
                 return {
@@ -86,6 +88,7 @@ class AccessService{
             }
 
         } catch (error) {
+            console.error(error)
             return {
                 code: 'xxx',
                 message: error.message,
