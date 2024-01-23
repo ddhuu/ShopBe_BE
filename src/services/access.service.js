@@ -4,7 +4,8 @@ const shopModel = require("../models/shop.model")
 const bcrypt = require('bcrypt')
 const crypto = require('crypto')
 const KeyTokenService = require("./keyToken.service")
-const { createTokenPair } = require("../auth/authUtils")
+const { createTokenPair } = require("../auth/authUtils") 
+const { getInfoData } = require("../utils")
 
 const RoleShop = {
     SHOP: 'SHOP',
@@ -32,7 +33,18 @@ class AccessService{
             if (newShop)
             {
                 // created privateKey, publicKey
-                const {privateKey, publicKey} = crypto.generateKeyPairSync('rsa',{ modulusLength: 2048})
+                const {privateKey, publicKey} = crypto.generateKeyPairSync('rsa',{ 
+                    modulusLength: 2048,
+                    publicKeyEncoding: {
+                        type: 'pkcs1',
+                        format: 'pem'
+                    },
+                    privateKeyEncoding: {
+                        type: 'pkcs1',
+                        format: 'pem'
+                    }
+                
+                })
                 
                 console.log({privateKey, publicKey}) //save collections keyStore
 
@@ -40,6 +52,7 @@ class AccessService{
                     userID: newShop._id,
                     publicKey
                 })
+                console.log(`publicKeyString::`, publicKeyString)
 
                 if(!publicKeyString){
                     return {
@@ -48,14 +61,17 @@ class AccessService{
                     }
                 }
 
+                const publicKeyObject = crypto.createPublicKey(publicKeyString)
+                console.log(`publicKeyObject::`, publicKeyObject)
+
                 // created token pair
-                const tokens = await createTokenPair({userID: newShop._id, email}, publicKey, privateKey)
+                const tokens = await createTokenPair({userID: newShop._id, email},publicKeyObject , privateKey)
                 console.log(`Create Token Successfully`, tokens)
 
                 return {
                     code : 201,
                     metadata:{
-                        shop: newShop,
+                        shop: getInfoData({fields:['_id','name','email'], object: newShop}),
                         tokens
                     }
                 }

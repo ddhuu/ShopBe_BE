@@ -11,7 +11,7 @@ class KeyTokenService{
                 publicKey: publicKeyString
             })
 
-            return token ? publicKeyString : null
+            return tokens ? tokens.publicKey : null
         } catch (error) {
             return error
         }

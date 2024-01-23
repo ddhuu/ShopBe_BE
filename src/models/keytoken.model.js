@@ -1,6 +1,6 @@
 'use strict'
 
-const {Schema,model,Types} = require('mongoose');
+const {Schema,model} = require('mongoose');
 
 const DOCUMENT_NAME = 'Key'
 const COLLECTION_NAME = 'Keys'
@@ -12,11 +12,11 @@ var keyTokenSchema = new Schema({
         required:true,
         ref: 'Shop'
     },
-    public_key:{
+    publicKey:{
         type:String,
         required:true
     },
-    refresh_token:{
+    refreshToken:{
         type:Array,
         default:[]
     },
