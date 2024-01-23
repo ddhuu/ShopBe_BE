@@ -1,4 +1,4 @@
-'use-strict'
+'use strict'
 
 const mongoose = require('mongoose')
 const {db : {host,name,port}} = require('../config/config.mongodb')
