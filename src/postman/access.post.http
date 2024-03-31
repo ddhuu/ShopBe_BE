@@ -6,8 +6,7 @@ Content-Type: application/json
 x-api-key: ad831ed0551f86744be5e922517b700bfd59474e5b338d779648df49c4659db5906cf4ae76e849861a74400c595c03705e740ca51915bda934cf1a4f32006221
 
 {
-    "name": "ddhuu",
-    "email": "ddhuu.dev@gmail.com",
-
+    "name": "ddhuu1",
+    "email": "ddhuu1.dev@gmail.com",
     "password": "123"
 }
