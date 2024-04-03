@@ -1,6 +1,7 @@
 "use strict";
 
 const { model, Schema } = require("mongoose");
+const { default: slugify } = require("slugify");
 
 const DOCUMENT_NAME = "Product";
 const COLLECTION_NAME = "Products";
@@ -30,7 +31,7 @@ const productSchema = new Schema(
     max: [5,'Rating must be less than or equal 5.0'],
     set: val => Math.round(val * 10) / 10
   },
-  priduct_variations: {
+  product_variations: {
     type: Array,
     default: []
   },
