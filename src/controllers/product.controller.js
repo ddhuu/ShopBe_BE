@@ -42,6 +42,9 @@ class ProductController {
    * @param {Number} skip
    * @return {JSON}
    */
+
+
+
   getAllDraftsForShop = async (req, res, next) => {
     new SuccessResponse({
       message: "Get list of draft successfully",
@@ -68,6 +71,17 @@ class ProductController {
       ),
     }).send(res);
   };
+
+  findAllProducts = async (req, res, next) => {
+    new SuccessResponse({
+      message: "Get List All successfully",
+      metadata: await ProductService.findAllProducts(
+        req.query
+      ),
+    }).send(res);
+  };
+
+
 
   //END QUERY //
 }
