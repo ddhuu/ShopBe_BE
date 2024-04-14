@@ -7,7 +7,7 @@ const {
   electronic,
   furniture,
 } = require("../models/product.model");
-const { insertInventory } = require("../models/repositories/inevntory.repo");
+const { insertInventory } = require("../models/repositories/inventory.repo");
 const {
   findAllDraftsForShop,
   findAllPublishForShop,

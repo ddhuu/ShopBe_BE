@@ -33,7 +33,7 @@ class BadRequestError extends ErrorResponse {
     message = ReasonStatusCode.CONFLICT,
     statusCode = StatusCode.FORBIDDEN
   ) {
-    super(message, (statusCode = ReasonPhrase.UN));
+    super(message, (statusCode = ReasonPhrases.UN));
   }
 }
 
