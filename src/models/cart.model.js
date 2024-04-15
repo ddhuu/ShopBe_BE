@@ -1,6 +1,6 @@
 "use strict";
 
-const { model } = require("mongoose");
+const { model, Schema } = require("mongoose");
 
 const DOCUMENT_NAME = "cart";
 const COLLECTION_NAME = "Carts";
@@ -34,7 +34,7 @@ const cartSchema = new Schema(
   },
   {
     collection: COLLECTION_NAME,
-    timeseries: {
+    timestamps: {
       createdAt: "createOn",
       updatedAt: "modifiedOn",
     },
