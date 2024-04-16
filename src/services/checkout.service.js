@@ -118,15 +118,14 @@ class CheckoutService {
     shop_order_ids_new,
     cartId,
     userId,
-    user_addres = {},
+    user_address = {},
     user_payment = {},
   }) {
-    const { shop_order_ids_new, checkout_order } =
-      await CheckoutService.checkOutReview({
-        cartId,
-        userId,
-        shop_order_ids,
-      });
+    const { checkout_order } = await CheckoutService.checkOutReview({
+      cartId,
+      userId,
+      shop_order_ids: shop_orders_ids_new,
+    });
 
     // Check lai lan nua xem vuot ton kho hay khong
     const products = shop_order_ids_new.flatMap((order) => order.item_products);

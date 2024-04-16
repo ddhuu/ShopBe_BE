@@ -1,6 +1,6 @@
 "use strict";
 const { SuccessResponse } = require("../core/success.response");
-const CheckoutService = require("../services/checkout.services");
+const CheckoutService = require("../services/checkout.service");
 
 class CheckoutController {
   checkOutReview = async (req, res, next) => {
