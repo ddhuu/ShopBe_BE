@@ -18,16 +18,15 @@ Key Features: Cart Service
 class CartService {
   static async createUserCart({ userId, product }) {
     const query = { cart_userId: userId, cart_state: "active" },
-
-    updateOrInsert = {
-      $addToSet: {
-        cart_products: product,
+      updateOrInsert = {
+        $addToSet: {
+          cart_products: product,
+        },
       },
-    },
-    option = {
-      upsert: true,
-      new: true,
-    };
+      option = {
+        upsert: true,
+        new: true,
+      };
 
     return cart.findOneAndUpdate(query, updateOrInsert, option);
   }
@@ -36,22 +35,26 @@ class CartService {
     const { productId, quantity } = product;
     const query = {
       cart_userId: userId,
-      "cart_products.productId": productId,
       cart_state: "active",
-    },
-
-    updateSet = {
-      $inc: {
-        "cart_products.$.quantity": quantity,
-      },
-    },
-
-    options = {
-      upsert: true,
-      new: true,
     };
 
-    return await cart.findOneAndUpdate(query, updateSet, options);
+    const userCart = await cart.findOne(query);
+
+    if (!userCart) {
+      throw new Error("Cart not found");
+    }
+
+    const productIndex = userCart.cart_products.findIndex(
+      (p) => p.productId === productId
+    );
+
+    if (productIndex === -1) {
+      throw new Error("Product not found in cart");
+    }
+
+    userCart.cart_products[productIndex].quantity += quantity;
+
+    return await userCart.save();
   }
 
   static async addToCart({ userId, product = {} }) {
@@ -62,6 +65,15 @@ class CartService {
     if (!userCart) {
       // creat new cart
       return await CartService.createUserCart({ userId, product });
+    }
+
+    // Find product in the cart
+    const productIndex = userCart.cart_products.findIndex(
+      (p) => p.productId === product.productId
+    );
+    if (productIndex === -1) {
+      userCart.cart_products.push(product);
+      return await userCart.save();
     }
 
     // Cart is existing but do not have any products
@@ -95,55 +107,52 @@ class CartService {
   ]
   */
 
-  static async addToCartV2({userId,shop_order_ids}){
-    const {productId,quantity,old_quantity}= 
-    shop_order_ids[0]?.item_products[0]
+  static async addToCartV2({ userId, shop_order_ids }) {
+    const { productId, quantity, old_quantity } =
+      shop_order_ids[0]?.item_products[0];
     //check product
-    const foundProduct = await getProductById(productId)
-    if(!foundProduct) throw new NotFoundError('Product does not exists ')
+    const foundProduct = await getProductById(productId);
+    if (!foundProduct) throw new NotFoundError("Product does not exists ");
     // compare
-    if(foundProduct.product_shop.toString() !== shop_order_ids[0]?.shopId){
-      throw new NotFoundError('Product does not exists in this shop')
+    if (foundProduct.product_shop.toString() !== shop_order_ids[0]?.shopId) {
+      throw new NotFoundError("Product does not exists in this shop");
     }
 
-    if(quantity ===0){
+    if (quantity === 0) {
       //deleted
     }
 
     return await CartService.updateUserCartQuantity({
       userId,
-      product:{
+      product: {
         productId,
-        quantity: quantity - old_quantity
-      }
-    })
+        quantity: quantity - old_quantity,
+      },
+    });
   }
 
-
-    static async deleteUserCart({userId,productId}){
-      const query = {cart_userId: userId, cart_state :'active'},
-
-      updateSet= {
-        $pull:{
+  static async deleteUserCart({ userId, productId }) {
+    const query = { cart_userId: userId, cart_state: "active" },
+      updateSet = {
+        $pull: {
           cart_products: {
-            productId
-          }
-        }
+            productId,
+          },
+        },
+      };
 
-      }
+    const deleteCart = await cart.updateOne(query, updateSet);
 
-      const deleteCart = await cart.updateOne(query,updateSet)
+    return deleteCart;
+  }
 
-      return deleteCart
-
-    }
-
-    static async getListCart({userId}){
-      return await cart.findOne({
-        cart_userId: + userId,
-      }).lean()
-    }
-
+  static async getListCart({ userId }) {
+    return await cart
+      .findOne({
+        cart_userId: +userId,
+      })
+      .lean();
+  }
 }
 
 module.exports = CartService;
