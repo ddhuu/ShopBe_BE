@@ -144,7 +144,7 @@ class CommentService {
     const rightValue = comment.comment_right;
 
     // 2. Caculate width
-    const width = rightValue - leftValue;
+    const width = rightValue - leftValue + 1;
     // 3. Delete all children Comments
 
     await Comment.deleteMany({

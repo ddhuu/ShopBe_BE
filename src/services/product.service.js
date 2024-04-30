@@ -19,14 +19,11 @@ const {
   updateProductById,
 } = require("../models/repositories/product.repo");
 const { removeUndefinedObject, updateNestedObjectParser } = require("../utils");
-
-
+const { pushNotiToSystem } = require("./notification.service");
 
 // define Factory class to create product
 
 class ProductFactory {
-  
-
   static productRegistry = {}; // key - class
 
   static registerProductType(type, classRef) {
@@ -47,14 +44,6 @@ class ProductFactory {
     return new productClass(payload).updateProduct(productId);
   }
 
-
-
- 
-  
-
-
-
-
   static async publishProductByShop({ product_shop, product_id }) {
     return await publishProductByShop({ product_shop, product_id });
   }
@@ -62,10 +51,6 @@ class ProductFactory {
   static async unPublishProductByShop({ product_shop, product_id }) {
     return await unPublishProductByShop({ product_shop, product_id });
   }
-
-  
-
-
 
   // QUERY //
 
@@ -80,22 +65,33 @@ class ProductFactory {
   }
 
   static async searchProducts({ keySearch }) {
-    return await searchProductByUser({keySearch})
+    return await searchProductByUser({ keySearch });
   }
 
-  static async findAllProducts({limit = 50, sort = 'ctime', page  = 1, filter = {isPublished: true} }) {
-    return await  findAllProducts({limit,sort,page,filter,select:['product_name','product_price','product_thumb','product_shop']})
+  static async findAllProducts({
+    limit = 50,
+    sort = "ctime",
+    page = 1,
+    filter = { isPublished: true },
+  }) {
+    return await findAllProducts({
+      limit,
+      sort,
+      page,
+      filter,
+      select: [
+        "product_name",
+        "product_price",
+        "product_thumb",
+        "product_shop",
+      ],
+    });
   }
 
-  static async findProduct({product_id}){
-    return await findProduct({product_id, unSelect: ['__v']})
+  static async findProduct({ product_id }) {
+    return await findProduct({ product_id, unSelect: ["__v"] });
   }
-
-
-
 }
-
-
 
 // Define base product class
 
@@ -125,13 +121,26 @@ class Product {
   async createProduct(product_id) {
     const newProduct = await product.create({ ...this, _id: product_id });
 
-    if(newProduct){
+    if (newProduct) {
       //add product_stock in inventory collection
       await insertInventory({
         productId: newProduct._id,
         shopId: this.product_shop,
-        stock: this.product_quantity
+        stock: this.product_quantity,
+      });
+
+      // Push notification to collection
+      pushNotiToSystem({
+        type: "SHOP-001",
+        receiverId: 1,
+        senderId: this.product_shop,
+        options: {
+          product_name: this.product_name,
+          shop_name: this.product_shop,
+        },
       })
+        .then((res) => console.log(res))
+        .catch(console.error);
     }
 
     return newProduct;
@@ -139,11 +148,9 @@ class Product {
 
   //update product
 
-  async updateProduct(productId, bodyUpdate){
-    return await updateProductById({productId,bodyUpdate, model: product})
+  async updateProduct(productId, bodyUpdate) {
+    return await updateProductById({ productId, bodyUpdate, model: product });
   }
-
-
 }
 
 // Define sub-class for differenr product types Clothing
@@ -163,7 +170,7 @@ class Clothing extends Product {
     return newProduct;
   }
 
-  async  updateProduct(productId){
+  async updateProduct(productId) {
     /*
     {
       a: undefined,
@@ -172,22 +179,18 @@ class Clothing extends Product {
     */
 
     // 1. Remove attribute has null or undefined
-    const objectParams = this
+    const objectParams = this;
 
     // 2. Check where to update
 
-    if(objectParams.product_attributes){
+    if (objectParams.product_attributes) {
       //update child
-      await updateProductById({productId,objectParams, model: clothing})
-      
+      await updateProductById({ productId, objectParams, model: clothing });
     }
 
-    const updateProduct = await super.updateProduct(productId,objectParams)
+    const updateProduct = await super.updateProduct(productId, objectParams);
 
-    return updateProduct
-
-    
-
+    return updateProduct;
   }
 }
 
@@ -224,7 +227,7 @@ class Furnitures extends Product {
 
     return newProduct;
   }
-  async  updateProduct(productId){
+  async updateProduct(productId) {
     /*
     {
       a: undefined,
@@ -235,30 +238,28 @@ class Furnitures extends Product {
     // 1. Remove attribute has null or undefined
 
     //console.log(`[1]::`, this)
-    const objectParams = removeUndefinedObject(this)
+    const objectParams = removeUndefinedObject(this);
     //console.log(`[2]::`, objectParams)
     // 2. Check where to update
 
-    if(objectParams.product_attributes){
+    if (objectParams.product_attributes) {
       //update child
 
       await updateProductById({
         productId,
         bodyUpdate: updateNestedObjectParser(objectParams.product_attributes),
-         model: furniture})
-      
+        model: furniture,
+      });
     }
 
-    const updateProduct = await super.updateProduct(productId, updateNestedObjectParser(objectParams))
+    const updateProduct = await super.updateProduct(
+      productId,
+      updateNestedObjectParser(objectParams)
+    );
 
-    return updateProduct
+    return updateProduct;
   }
-
-
-  
 }
-
-
 
 // Register Product Type
 
