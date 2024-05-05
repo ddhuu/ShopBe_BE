@@ -12,10 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "@redis/client": "^1.5.14",
+    "amqplib": "^0.10.4",
     "bcrypt": "^5.1.1",
     "crypto": "^1.0.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
+    "kafkajs": "^2.2.4",
     "lodash": "^4.17.21",
     "mongoose": "^8.1.0",
     "nvm": "^0.0.4",
