@@ -18,8 +18,8 @@ require("./dbs/init.db");
 
 // Init Router
 app.use("", require("./routes"));
-// Handling Error
 
+// Handling Error
 app.use((req, res, next) => {
   const error = new Error("Not Found");
   error.status = 404;

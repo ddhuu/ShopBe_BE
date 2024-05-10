@@ -1,14 +1,25 @@
 "use strict";
 
-const messageService = require("./src/services/consumerQueue.service");
+const {
+  consumerToQueue,
+  consumerToQueueNormal,
+  consumerToQueueDLX,
+} = require("./src/services/consumerQueue.service");
 
 const queueName = "test-topic";
 
-messageService
-  .consumerToQueue(queueName)
+consumerToQueueNormal(queueName)
   .then(() => {
-    console.log(`Consumer started ${queueName}`);
+    console.log(`Consumer to queue normal start ${queueName} `);
   })
   .catch((err) => {
-    console.error(`Message Error: ${err.message}`);
+    console.error(`Consumer to queue normal error ${err}`);
+  });
+
+consumerToQueueDLX(queueName)
+  .then(() => {
+    console.log(`Consumer to queue DLX start ${queueName} `);
+  })
+  .catch((err) => {
+    console.error(`Consumer to queue DLX error ${err}`);
   });
