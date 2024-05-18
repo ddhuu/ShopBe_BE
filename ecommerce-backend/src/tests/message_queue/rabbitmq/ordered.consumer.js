@@ -18,10 +18,13 @@ async function consumerOrderMessage() {
   channel.consume(queueName, (msg) => {
     const message = msg.content.toString();
 
-    setTimeout(() => {
+    try {
       console.log("processed", message);
       channel.ack(msg);
-    }, Math.random() * 1000);
+    } catch (err) {
+      console.error("Error processing message: ", err);
+      channel.nack(msg, false, true); // requeue the message
+    }
   });
 }
 
