@@ -1,6 +1,6 @@
 
 /diagram
+/script
 
 **/node_modules
-
 *.env
