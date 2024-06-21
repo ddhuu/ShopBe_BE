@@ -3,10 +3,10 @@
 ### Sign-Up
 POST {{url_dev}}/shop/signup
 Content-Type: application/json
-x-api-key: ad831ed0551f86744be5e922517b700bfd59474e5b338d779648df49c4659db5906cf4ae76e849861a74400c595c03705e740ca51915bda934cf1a4f32006221
+x-api-key: a5b4c273b37db06345a93fd38aa21c4d11c5f4e632cbc3426e9bf5b4e6124acc72f4be591cb3018a827d86fa4957cd53f2e9da8527d4b7daeebf36d4aefe449f
 
 {
-    "name": "ddhuu",
-    "email": "ddhuu.dev@gmail.com",
+    "name": "dhuu",
+    "email": "ddhuu@gmail.com",
     "password": "123"
 }
