@@ -17,4 +17,4 @@ const resourceSchema = new Schema(
   }
 );
 
-moudule.exports = model(DOCUMENT_NAME, resourceSchema);
+module.exports = model(DOCUMENT_NAME, resourceSchema);

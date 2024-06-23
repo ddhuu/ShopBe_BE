@@ -7,10 +7,10 @@ const { grantAccess } = require("../../middewares/rbac");
 
 // admin
 
-router.get("/viewAny", grantAccess("readAny", "profile"), profiles);
+router.get("/viewAny", grantAccess("readAny", "Profile"), profiles);
 
 // shop
 
-router.get("/viewOwn", grantAccess("readOwn", "profile"), profile);
+router.get("/viewOwn", grantAccess("readOwn", "Profile"), profile);
 
 module.exports = router;
