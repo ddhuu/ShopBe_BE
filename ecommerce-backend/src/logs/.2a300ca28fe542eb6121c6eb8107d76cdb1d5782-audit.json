@@ -1,0 +1,100 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "src/logs/.2a300ca28fe542eb6121c6eb8107d76cdb1d5782-audit.json",
+    "files": [
+        {
+            "date": 1719301214838,
+            "name": "src/logs/application-24-06-25-14-40-14.info.log",
+            "hash": "59645149d4c401c158cc44151f4c748a15cf368115bf89f9f9f8010d942a2bc4"
+        },
+        {
+            "date": 1719301229206,
+            "name": "src/logs/application-24-06-25-14-40-29.info.log",
+            "hash": "c379afae7c8a30139ec82f0dd1d72d4bf3c3264348ed6f7cec698d00980911d2"
+        },
+        {
+            "date": 1719301308158,
+            "name": "src/logs/application-24-06-25-14-41-48.info.log",
+            "hash": "ad78e9b84a3dfc64555fd19adf185cfef7230b4410244cebd116e1992b209484"
+        },
+        {
+            "date": 1719301327060,
+            "name": "src/logs/application-24-06-25-14-42-07.info.log",
+            "hash": "59269e7cbd969b3ddc07bba2a3d71f04154ddca395189ab5d597210987c93443"
+        },
+        {
+            "date": 1719301385432,
+            "name": "src/logs/application-24-06-25-14-43-05.info.log",
+            "hash": "0c027018a36d29b4e09a9285920e90ac2ad97e25c5fd0d8e4b44ca2c1277eab8"
+        },
+        {
+            "date": 1719301394023,
+            "name": "src/logs/application-24-06-25-14-43-14.info.log",
+            "hash": "9de68e27ac17b1b466c218b99850066e2addb16bac02a8845c90ae798b7919a0"
+        },
+        {
+            "date": 1719301424985,
+            "name": "src/logs/application-24-06-25-14-43-44.info.log",
+            "hash": "a6475d434479dec0c6fcf6b44bd32a3dd43fde7f7bcfc3c3e50dd6830cf99575"
+        },
+        {
+            "date": 1719301425011,
+            "name": "src/logs/application-24-06-25-14-43-45.info.log",
+            "hash": "35642c98e85f44f3f1b2d0a3e1064b93b90dae4126801ce5ec5ee26dff59ff4a"
+        },
+        {
+            "date": 1719301479025,
+            "name": "src/logs/application-24-06-25-14-44-39.info.log",
+            "hash": "53ef5457f366a8e1153f88a046fd44e2d4a335fbddb49eaa70a21829ec74f3cc"
+        },
+        {
+            "date": 1719301484975,
+            "name": "src/logs/application-24-06-25-14-44-44.info.log",
+            "hash": "b6c2cc9496ed559660d762d6805b9b1643782cf70c8cecb5d891b524c8f98d0b"
+        },
+        {
+            "date": 1719301485043,
+            "name": "src/logs/application-24-06-25-14-44-45.info.log",
+            "hash": "e3e12c079a1660bc3cbca828262651c675e669a6266f15f525838be46c62b42b"
+        },
+        {
+            "date": 1719301712389,
+            "name": "src/logs/application-24-06-25-14-48-32.info.log",
+            "hash": "17aa247c02c1d375ceb8fe19c363ffe5ad806a8e85206feadbe3f5983c27a35e"
+        },
+        {
+            "date": 1719301722614,
+            "name": "src/logs/application-24-06-25-14-48-42.info.log",
+            "hash": "a3d80f42d3cad4f0626c01f332cd913b4de083a172edbd55bd450793421f45d3"
+        },
+        {
+            "date": 1719301725912,
+            "name": "src/logs/application-24-06-25-14-48-45.info.log",
+            "hash": "7b6c0cb3a000f018d52eef7f9929292dd8bfe7a1a64ba0712d5cc36ac40989e4"
+        },
+        {
+            "date": 1719301883895,
+            "name": "src/logs/application-24-06-25-14-51-23.info.log",
+            "hash": "4a32d4b0345a0022b6776eaf5fb05a9e40c5863e00ac8857873e74410fdf8a0d"
+        },
+        {
+            "date": 1719301891467,
+            "name": "src/logs/application-24-06-25-14-51-31.info.log",
+            "hash": "1ecf57ecfb7270c99401c2ef931581c02d2099598c2bcbd03bb81f5046d551ff"
+        },
+        {
+            "date": 1719302008710,
+            "name": "src/logs/application-24-06-25-14-53-28.info.log",
+            "hash": "8b97a588d7b4abd5b9d7019ee8acd22b9a855966018667403c710c338bc76981"
+        },
+        {
+            "date": 1719302128588,
+            "name": "src/logs/application-24-06-25-14-55-28.info.log",
+            "hash": "fb7c963acf2d0ea8f50d58b62d949f33bc7cafbeb05b4c2f09a20461f17fa09b"
+        }
+    ],
+    "hashType": "sha256"
+}

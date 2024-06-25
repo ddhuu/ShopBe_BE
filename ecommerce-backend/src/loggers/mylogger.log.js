@@ -1,28 +1,61 @@
+/*
+ error,
+ warning,
+ debug,
+ info,
+ request Id or Trace Id
+*/
+
 "use strict";
 
-// const { format } = require("morgan");
-const { createLogger, format, transports, winston } = require("winston");
+const {
+  createLogger,
+  format,
+  transports,
+  winston,
+  addColors,
+} = require("winston");
 require("winston-daily-rotate-file");
 const { v4: uuidv4 } = require("uuid");
 
-const { combine, timestamp, json, align, printf } = format;
+const { combine, timestamp, json, align, printf, colorize } = format;
+
+const COLOR = {
+  error: "red",
+  warning: "yellow",
+  info: "green",
+  debug: "blue",
+};
+addColors(COLOR);
+
+const formatPrint = printf(
+  ({ level, message, context, requestId, timestamp, metadata }) => {
+    return `${timestamp}::{${level}::${context}::${requestId}::${message}::${JSON.stringify(
+      metadata
+    )}`;
+  }
+);
+
+// Format for console that includes colorization
+const consoleFormat = format.combine(
+  format.colorize(),
+  format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+  formatPrint
+);
+
+// Format for files without colorization
+const fileFormat = format.combine(
+  format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+  formatPrint
+);
 
 class MyLogger {
   constructor() {
-    const formatPrint = format.printf(
-      ({ level, message, context, requestId, timestamp, metadata }) => {
-        return `${timestamp}::{${level}::${context}::${requestId}::${message}::${JSON.stringify(
-          metadata
-        )}`;
-      }
-    );
     this.logger = createLogger({
-      format: format.combine(
-        format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-        formatPrint
-      ),
       transports: [
-        new transports.Console(),
+        new transports.Console({
+          format: consoleFormat,
+        }),
         new transports.DailyRotateFile({
           dirname: "src/logs",
           filename: "application-%DATE%.info.log",
@@ -30,10 +63,7 @@ class MyLogger {
           zipArchive: true,
           maxSize: "20m",
           maxFiles: "14d",
-          format: format.combine(
-            format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-            formatPrint
-          ),
+          format: fileFormat,
           level: "info",
         }),
         new transports.DailyRotateFile({
@@ -43,10 +73,7 @@ class MyLogger {
           zipArchive: true,
           maxSize: "20m",
           maxFiles: "14d",
-          format: format.combine(
-            format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-            formatPrint
-          ),
+          format: fileFormat,
           level: "error",
         }),
       ],

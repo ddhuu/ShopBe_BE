@@ -18,9 +18,14 @@ class AccessController {
     if (!email) {
       throw new BadRequestError("Email is required");
     }
-    new SuccessResponse({
-      metadata: await AccessService.login(req.body),
-    }).send(res);
+    const sendData = Object.assign({ requestId: req.requestId }, req.body);
+
+    const { code, ...result } = await AccessService.login(sendData);
+    if (code === 200) {
+      new SuccessResponse({
+        metadata: result,
+      }).send(res);
+    }
   };
 
   signUp = async (req, res, next) => {
