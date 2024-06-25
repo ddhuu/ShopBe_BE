@@ -10,12 +10,21 @@ const ReasonStatusCode = {
   CONFLICT: "Conflict error",
 };
 
+const myLogger = require("../loggers/mylogger.log");
 const { StatusCodes, ReasonPhrases } = require("../utils/httpStatusCode");
 
 class ErrorResponse extends Error {
   constructor(message, status) {
     super(message);
     this.status = status;
+
+    myLogger.error(this.message, [
+      "/api/v1/login",
+      "vv12345",
+      {
+        error: "Bad Request Error",
+      },
+    ]);
   }
 }
 
@@ -58,5 +67,5 @@ module.exports = {
   ConflictRequestError,
   BadRequestError,
   AuthFailureError,
-  NotFoundError
+  NotFoundError,
 };
