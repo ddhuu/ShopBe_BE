@@ -101,7 +101,7 @@ const htmlEmailToken = () => {
                                 <td style="padding: 0 30px 20px">
                                     <p style="margin-bottom: 10px;">Hi Sundar,</p>
                                     <p style="margin-bottom: 10px;">Welcome! <br> You are receiving this email because you have registered on our site.</p>
-                                    <p style="margin-bottom: 10px;">Click the link below to active your TokenWiz account.</p>
+                                    <p style="margin-bottom: 10px;">Click the link below to active ShopBE account.</p>
                                     <p style="margin-bottom: 25px;">This link will expire in 15 minutes and can only be used once.</p>
                                     <a href="{{link_verify}}" style="background-color:#6576ff;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0 30px">Verify Email</a>
                                 </td>
@@ -116,7 +116,7 @@ const htmlEmailToken = () => {
                             <tr>
                                 <td style="padding: 20px 30px 40px">
                                     <p>If you did not make this request, please contact us or ignore this message.</p>
-                                    <p style="margin: 0; font-size: 13px; line-height: 22px; color:#9ea8bb;">This is an automatically generated email please do not reply to this email. If you face any issues, please contact us at  techmindhelps@gmail.com</p>
+                                    <p style="margin: 0; font-size: 13px; line-height: 22px; color:#9ea8bb;">This is an automatically generated email please do not reply to this email. If you face any issues, please contact us at ddhuu.dev@gmail.com</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -125,7 +125,7 @@ const htmlEmailToken = () => {
                         <tbody>
                             <tr>
                                 <td style="text-align: center; padding:25px 20px 0;">
-                                    <p style="font-size: 13px;">Copyright © 2021 Tech Mind. All rights reserved. <br> Template Made By <a style="color: #6576ff; text-decoration:none;" href="">Tech Mind</a>.</p>
+                                    <p style="font-size: 13px;">Copyright © 2024 ShopBE. All rights reserved. <br> Template Made By <a style="color: #6576ff; text-decoration:none;" href="">Tech Mind</a>.</p>
                                     <ul style="margin: 10px -4px 0;padding: 0;">
                                         <li style="display: inline-block; list-style: none; padding: 4px;"><a style="display: inline-block; height: 30px; width:30px;border-radius: 50%; background-color: #ffffff" href="#"><img style="width: 30px" src="images/brand-b.png" alt="brand"></a></li>
                                         <li style="display: inline-block; list-style: none; padding: 4px;"><a style="display: inline-block; height: 30px; width:30px;border-radius: 50%; background-color: #ffffff" href="#"><img style="width: 30px" src="images/brand-e.png" alt="brand"></a></li>

@@ -49,7 +49,7 @@ const sendEmailToken = async ({ email }) => {
     // 3. Replace link_verify in template
 
     const content = replaceHolder(template.tem_html, {
-      link_verify: `http://localhost:3057/cgb/welcome-back?token=${token.otp_token}`,
+      link_verify: `http://localhost:3057/v1/api/user/welcome-back?token=${token.otp_token}`,
     });
 
     // 4. Send Email
