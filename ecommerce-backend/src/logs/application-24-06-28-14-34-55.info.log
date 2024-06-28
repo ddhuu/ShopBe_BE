@@ -1,0 +1,1 @@
+2024-06-28 14:34:55::{error::/v1/api/user/new_user::dd37357f-7cec-4c11-a2f9-3247ab7e7e6b::400-NaNms - Response: {"expose":true,"statusCode":400,"status":400,"body":"{\r\n    \"email\": ddhuu.dev@gmail.com\"\r\n  \r\n}","type":"entity.parse.failed"}::{"message":"Unexpected token 'd', ...\" \"email\": ddhuu.dev@\"... is not valid JSON"}

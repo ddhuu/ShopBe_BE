@@ -11,7 +11,7 @@ const userSchema = new Schema(
     usr_slug: { type: String, required: true },
     usr_name: { type: String, required: true },
     usr_password: { type: String, default: "" },
-    usr_salf: { type: Strinh, default: "" },
+    usr_salf: { type: String, default: "" },
     usr_email: { type: String, required: true },
     usr_phone: { type: String, default: "" },
     usr_sex: { type: String, default: "" },

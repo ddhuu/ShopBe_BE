@@ -14,17 +14,21 @@ class AccessController {
   };
 
   login = async (req, res, next) => {
-    const { email } = req.body;
-    if (!email) {
-      throw new BadRequestError("Email is required");
-    }
-    const sendData = Object.assign({ requestId: req.requestId }, req.body);
+    try {
+      const { email } = req.body;
+      if (!email) {
+        throw new BadRequestError("Email is required");
+      }
+      const sendData = Object.assign({ requestId: req.requestId }, req.body);
 
-    const { code, ...result } = await AccessService.login(sendData);
-    if (code === 200) {
+      const result = await AccessService.login(sendData);
+
       new SuccessResponse({
+        message: "Login Successfully",
         metadata: result,
       }).send(res);
+    } catch (error) {
+      next(error);
     }
   };
 

@@ -16,40 +16,44 @@ const unGetSelectData = (select = []) => {
   return Object.fromEntries(select.map((el) => [el, 0]));
 };
 
-const removeUndefinedObject = obj =>{
-  Object.keys(obj).forEach(k=>{
-    if(obj[k] == null)
-    {
-      delete obj[k]
+const removeUndefinedObject = (obj) => {
+  Object.keys(obj).forEach((k) => {
+    if (obj[k] == null) {
+      delete obj[k];
     }
-  })
+  });
 
-  return obj
-}
+  return obj;
+};
 
-
-const updateNestedObjectParser = obj  =>{
-  const final = {}
-  Object.keys(obj).forEach(k=>{
-    if(typeof obj[k] === 'object' && !Array.isArray(obj[k]))
-    {
-      const response = updateNestedObjectParser(obj[k])
-      Object.keys(response).forEach(a =>{
-        final[`${k}.${a}`] = response[a]
-      })
+const updateNestedObjectParser = (obj) => {
+  const final = {};
+  Object.keys(obj).forEach((k) => {
+    if (typeof obj[k] === "object" && !Array.isArray(obj[k])) {
+      const response = updateNestedObjectParser(obj[k]);
+      Object.keys(response).forEach((a) => {
+        final[`${k}.${a}`] = response[a];
+      });
+    } else {
+      final[k] = obj[k];
     }
-    else{
-        final[k] = obj[k]
-    }
-  })
+  });
 
-  return final
-}
+  return final;
+};
 
+const convertToObjectId = (id) => new Types.ObjectId(id);
 
-const convertToObjectId = id => new Types.ObjectId(id)
+// Replace Holder
 
+const replaceHolder = (template, params) => {
+  Object.keys(params).forEach((k) => {
+    const placeholder = `{{${k}}}`; // {{verifyKey}}
+    template = template.replace(new RegExp(placeholder, "g"), params[k]);
+  });
 
+  return template;
+};
 
 module.exports = {
   getInfoData,
@@ -57,5 +61,6 @@ module.exports = {
   unGetSelectData,
   removeUndefinedObject,
   updateNestedObjectParser,
-  convertToObjectId
+  convertToObjectId,
+  replaceHolder,
 };
